@@ -1,0 +1,50 @@
+# Entornos virtuales
+venv/
+ENV/
+.venv/
+env/
+
+# Archivos compilados de Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Base de datos SQLite local
+*.db
+*.sqlite3
+
+# Configuraciones locales y de entorno
+instance/
+config.py
+.env
+.env.local
+.env.*.local
+
+# Archivos de migraciones generados automáticamente
+migrations/versions/
+
+# Archivos de caché y logs
+*.log
+*.pot
+*.mo
+
+# Directorios de IDEs y editores
+.vscode/
+.idea/
+
+# Archivos creados por Flask en modo depuración
+*.pid
+
+# Librerías instaladas por pip
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Archivos creados por sistemas operativos
+.DS_Store
+Thumbs.db
+
+# Otros archivos temporales o de compilación
+build/
+dist/
+*.egg-info/
