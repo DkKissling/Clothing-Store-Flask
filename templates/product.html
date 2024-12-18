@@ -1,0 +1,81 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<section id="prodetails" class="section section-p1">
+    <div class="single-pro-image">
+        {% if producto.imagenes %}
+            <img src="{{ producto.imagenes[0].url_imagen }}" width="100%" id="MainImg" class="img-prin" alt="{{ producto.nombre }}">
+        {% else %}
+            <img src="../static/img/products/default.jpg" width="100%" id="MainImg" class="img-prin" alt="{{ producto.nombre }}">
+        {% endif %}
+
+        <div class="small-img-group">
+            {% for imagen in producto.imagenes[:4] %}
+                <div class="small-img-col">
+                    <img src="{{ imagen.url_imagen }}" width="100%" class="small-img" alt="" onclick="changeMainImage(this)">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="single-pro-details">
+        <h6>Inicio / {{ producto.categoria.nombre }}</h6>
+        <h4>{{ producto.nombre }}</h4>
+        <h2>₹{{ producto.precio_formateado|safe }}</h2>
+        
+        <form id="add-to-cart-form">
+            <select name="size">
+                <option value="">Seleccionar Talla</option>
+                {% for size in ['XL', 'XXL', 'Small', 'Large'] %}
+                    <option value="{{ size }}">{{ size }}</option>
+                {% endfor %}
+            </select>
+            <input type="number" name="quantity" value="1" min="1">
+            
+            <button type="button" class="normal" onclick="handleAddToCart({{ producto.producto_id }})">
+                Añadir al Carrito
+            </button>
+        </form>
+        
+        <h4>Detalles del Producto</h4>
+        <span>{{ producto.descripcion }}</span>
+    </div>
+</section>
+
+<script>
+function handleAddToCart(productId) {
+    {% if session.get('user_id') %}
+        // Si está autenticado, enviar al carrito
+        var form = document.getElementById('add-to-cart-form');
+        var formData = new FormData(form);
+        
+        fetch("{{ url_for('product.add_to_cart', product_id=producto.producto_id) }}", {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = "{{ url_for('product.cart') }}";
+            } else {
+                alert('Error al añadir al carrito');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error al añadir al carrito');
+        });
+    {% else %}
+        // Si no está autenticado, redirigir al login
+        window.location.href = "{{ url_for('auth.login') }}";
+    {% endif %}
+}
+</script>
+
+<script>
+function changeMainImage(smallImg) {
+    var mainImg = document.getElementById("MainImg");
+    mainImg.src = smallImg.src;
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div id="edit-profile">
+  <div id="edit-profile-page">
+    <div id="edit-profile-header">
+        <h1>Editar Perfil</h1>
+    </div>
+    <form class="edit-profile-form" method="POST" action="{{ url_for('main.edit_profile') }}" enctype="multipart/form-data">
+        <div class="edit-profile-image">
+            <img id="profile-photo" src="{{ usuario.foto_perfil if usuario.foto_perfil else 'https://via.placeholder.com/150' }}" alt="Foto de perfil">
+        </div>
+        <!-- Botón para cambiar foto de perfil -->
+        <button type="button" class="change-photo-link" onclick="document.getElementById('photo').click();">
+            Cambiar foto de perfil
+        </button>
+        <!-- Campo de entrada de archivo oculto -->
+        <input type="file" id="photo" name="photo" accept="image/*" style="display: none;">
+        <div id="file-name">Sin archivo seleccionado</div>
+        
+        <div class="form-group">
+            <label for="username">Nombre de usuario</label>
+            <input type="text" id="username" name="username" value="{{ usuario.nombre_usuario }}">
+        </div>
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" value="{{ usuario.persona.nombre }}">
+        </div>
+        <div class="form-group">
+            <label for="apellido">Apellido</label>
+            <input type="text" id="apellido" name="apellido" value="{{ usuario.persona.apellido }}">
+        </div>
+        <button type="submit" class="save-profile">Guardar Cambios</button>
+    </form>
+  </div>
+</div>
+
+<script>
+    // Actualizar el texto del nombre del archivo cuando se selecciona uno
+    document.getElementById('photo').addEventListener('change', function(event) {
+        const fileName = event.target.files[0] ? event.target.files[0].name : 'Sin archivo seleccionado';
+        document.getElementById('file-name').textContent = fileName;
+    });
+</script>
+
+{% endblock %}

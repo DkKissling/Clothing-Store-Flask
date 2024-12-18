@@ -1,0 +1,83 @@
+{% extends 'layout.html' %}
+{% block body %}
+<body class="page-shop">
+    
+<section id="page-header" class="section section">
+    <!-- Header content -->
+</section>
+
+<section id="products1" class="section section-p1">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        {% if session.get('user_id') %}
+            <button class="normal"><a href="{{ url_for('product.add_category') }}" class="normal">Agregar Categoría</a></button>
+            <button class="normal"><a href="{{ url_for('product.delete_category_view') }}" class="normal">Eliminar Categoría</a></button>
+        {% endif %}
+    </div>
+    <div id="category-filter" class="section section-p1">
+        <form method="GET" action="{{ url_for('product.shop') }}">
+            <label for="category">Seleccione una categoría:</label>
+            <select name="category" id="category" onchange="this.form.submit()">
+                <option value="">Todas las categorías</option>
+                {% for categoria in categorias %}
+                    <option value="{{ categoria.id }}" {% if categoria.id == request.args.get('category')|int %}selected{% endif %}>
+                        {{ categoria.nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+
+        {% if categoria_seleccionada %}
+            <p>Categoría seleccionada: {{ categoria_seleccionada.nombre }}</p>
+        {% endif %}
+    </div>
+
+    <div class="pro-container">
+        {% for producto in productos %}
+            <div class="pro" onclick="window.location.href='/product/{{ producto.producto_id }}';">
+                <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
+                <div class="des">
+                    <span>{{ producto.categoria.nombre }}</span>
+                    <h5>{{ producto.nombre }}</h5>
+                    <div class="star">
+                        {% for _ in range(5) %}
+                            <i class="fas fa-star"></i>
+                        {% endfor %}
+                    </div>
+                    <h4>₹{{ producto.precio_formateado|safe }}</h4>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% if productos_paginados.pages > 1 %}
+    <section id="pagination" class="section section-p1">
+        <nav>
+            <ul class="pagination">
+                {% if productos_paginados.has_prev %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('product.shop', page=productos_paginados.prev_num, category=request.args.get('category')) }}">Anterior</a>
+                    </li>
+                {% endif %}
+
+                {% for page_num in productos_paginados.iter_pages(left_edge=2, right_edge=2, left_current=2, right_current=2) %}
+                    {% if page_num %}
+                        <li class="page-item {% if page_num == productos_paginados.page %}active{% endif %}">
+                            <a class="page-link" href="{{ url_for('product.shop', page=page_num, category=request.args.get('category')) }}">{{ page_num }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled"><span class="page-link">…</span></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if productos_paginados.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('product.shop', page=productos_paginados.next_num, category=request.args.get('category')) }}">Siguiente</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </section>
+{% endif %}
+</body>
+{% endblock %}

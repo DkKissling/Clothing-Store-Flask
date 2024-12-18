@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>New Girs</title>
+    <link rel="stylesheet" href="../static/style/style.css">
+    
+</head>
+<body>
+    <div class="top-logo">
+        <a href="/"><img src="../static/img/logo.png" alt="Logo"></a>
+    </div>
+
+    <div class="side-menu">
+        <!-- Icono de menú en la parte superior izquierda -->
+        <div class="menu-icon">☰</div>
+
+        <!-- Items del menú, con links -->
+        <div class="menu-items">
+            <a href="/">Home</a>
+            <a href="/shop">Shop</a>
+            <a href="/blog">Blog</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <!-- <a href="/cart"><i class="fas fa-shopping-cart" aria-hidden="true"></i> Cart</a> -->
+            {% if 'user_id' in session %}
+            <a href="{{ url_for('main.profile') }}">Perfil</a> <!-- Icono para Perfil -->
+            <a href="/cart"><i class="fas fa-shopping-cart" aria-hidden="true"></i> Carrito</a> <!-- Logo de carrito -->
+                <a href="{{ url_for('main.config_profile') }}">Configuración</a>
+                <a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a>
+            {% else %}
+                <a href="/login"><i class="fas fa-user-circle" aria-hidden="true"></i> Iniciar Sesión</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Contenido principal -->
+
+    {% block body %}
+    {% endblock %}
+  
+    <footer class="custom-footer">
+        <div class="footer-left-section">
+            <div class="footer-logo-text">Nuevas Girs</div>
+            <div class="footer-nav-links">
+                <a href="#">Inicio</a>
+                <a href="#">Catálogo</a>
+                <a href="#">Sobre nosotros</a>
+                <a href="#">Contacto</a>
+            </div>
+        </div>
+        <div class="footer-center-section">
+            <p>"Viste con audacia, brilla con estilo"</p>
+            <p>&copy; 2024 NeonStyle. Todos los derechos reservados.</p>
+        </div>
+        <div class="footer-right-section">
+            <div class="social-media-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../static/script/cart.js"></script>
+    <script src="../static/script/menu.js"></script>
+    <script src="../static/script/profile-dropdown.js"></script>
+    <script src="../static/script/password-view.js"></script>
+    <script src="../static/script/config_profile.js"></script>
+    <script src="../static/script/order-management.js"></script>
+    <script src="../static/script/2FA_setup.js"></script>
+    <script src="../static/script/add_product.js"></script>
+    <script src="../static/script/login.js"></script>
+    <script src="../static/script/product.js"></script>
+    <script src="../static/script/profile.js"></script>
+    <script src="../static/script/user_panel.js"></script>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            var messages = {{ messages|tojson }};
+            messages.forEach(function(message) {
+                var category = message[0];
+                var text = message[1];
+                alert(text);
+            });
+        });
+    </script>
+    {% endif %}
+    {% endwith %}
+
+</body>
+
+</html>

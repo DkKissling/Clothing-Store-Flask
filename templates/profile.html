@@ -1,0 +1,87 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+{% block head %}
+
+<style>
+.stock-button {
+    margin: 10px;
+    margin-right: 20px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.in-stock {
+    background-color: #088178;;
+    color: white;
+}
+
+.out-of-stock {
+    background-color: #f44336;
+    color: white;
+}
+</style>
+{% endblock %}
+
+<div class="profile">
+  <div id="profile-page">
+    <div id="profile-header">
+      <div class="profile-image">
+        <!-- Mostrar la foto de perfil del usuario o una imagen por defecto -->
+        <img src="{{ usuario.foto_perfil if usuario.foto_perfil else '../static/img/perfil-vector.png' }}" alt="Foto de perfil">
+      </div>
+      <div class="profile-info">
+        <h1>{{ usuario.persona.nombre or 'Sin nombre' }} {{ usuario.persona.apellido or 'Sin apellido' }}</h1>
+        <p>@{{ usuario.nombre_usuario }}</p>
+        <button class="edit-profile"><a href="/edit_profile">Editar Perfil</a></button>
+        <button class="add-product"><a href="/add_product">Agregar Producto</a></button>
+      </div>
+    </div>
+    
+    <div id="posts">
+      <h2>Publicaciones</h2>
+      <div class="product-container">
+        {% for producto in productos %}
+        <div class="product-cart">
+          <img src="{{ producto.imagenes[0].url_imagen }}" alt="{{ producto.nombre }}">
+          <div class="des">
+            <span>{{ producto.categoria.nombre }}</span>
+            <h5>{{ producto.nombre }}</h5>
+            <div class="star">
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
+            </div>
+            <h4>₹{{ producto.precio_formateado|safe }}</h4>
+          </div>
+          <!-- Botón de stock -->
+          <button 
+            id="stock-button-{{ producto.producto_id }}"
+            onclick="toggleStock({{ producto.producto_id }})"
+            class="stock-button {% if producto.stock %}in-stock{% else %}out-of-stock{% endif %}"
+            >
+            {% if producto.stock %}En stock{% else %}Sin stock{% endif %}
+          </button>
+          <div class="action-buttons">
+            <!-- Pasar el product_id a la URL para editar y borrar -->
+            <a href="{{ url_for('product.edit_product', product_id=producto.producto_id) }}">
+              <button title="Editar"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            </a>
+            <form action="{{ url_for('product.delete_product', product_id=producto.producto_id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que quieres borrar este producto?');">
+              <button type="submit" title="Borrar"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            </form>
+          </div>
+        </div>        
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

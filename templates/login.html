@@ -1,0 +1,83 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<body>
+    <section class="account-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-2">
+                    <div class="form-container">
+                        <div class="form-btn">
+                            <span onclick="login()">Sign in</span>
+                            <span onclick="register()">Sign Up</span>
+                            <hr id="Indicator">
+                        </div>
+                    
+                        <form id="LoginForm" action="{{ url_for('auth.login') }}" method="POST">
+                            <h3>Welcome Back!👋</h3>
+                            <br>
+                            <input type="text" name="username" placeholder="Username" required>
+                            <div class="password-container">
+                                <input type="password" id="loginPassword" name="password" placeholder="Password" required>
+                                <span class="toggle-password" onclick="togglePasswordVisibility('loginPassword')">
+                                    <!-- SVG del ojo -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zm-8 4a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                        <path d="M8 5a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
+                                    </svg>
+                                </span>
+                            </div>
+                            <br>
+                            <a href="/forgot_password">Forgot password?</a> <br>
+                            <button type="submit" name="login" class="btn">Login</button>
+                            <br>
+                            <a href="#" onclick="register()"><u>Don't have an account? Sign Up</u></a>
+                        </form>
+                    
+                        <form id="RegForm" action="{{ url_for('auth.login') }}" method="POST">
+                            <h3>Create new account</h3>
+                            <br>
+                            <input type="text" name="username" autocomplete="off" placeholder="Username" required>
+                            <input type="email" name="email" autocomplete="off" placeholder="Email" required>
+                            <div class="password-container">
+                                <input type="password" id="registerPassword" name="password" autocomplete="off" placeholder="Password" required>
+                                <span class="toggle-password" onclick="togglePasswordVisibility('registerPassword')">
+                                    <!-- SVG del ojo -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zm-8 4a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                        <path d="M8 5a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
+                                    </svg>
+                                </span>
+                            </div>
+                            <br>
+                            <input type="text" name="nombre" autocomplete="off" placeholder="First Name" required>
+                            <input type="text" name="apellido" autocomplete="off" placeholder="Last Name" required>
+                            <input type="date" name="fecha_nacimiento" placeholder="Birthdate" required>
+                            <br>
+                            <select name="genero_id" required>
+                                <option value="" disabled selected>Select Gender</option>
+                                {% for genero in generos %}
+                                    <option value="{{ genero.genero_id }}">{{ genero.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                            <br>
+                            <br>
+                            <select name="localidad_id" required>
+                                <option value="" disabled selected>Select Location</option>
+                                {% for localidad in localidades %}
+                                    <option value="{{ localidad.localidad_id }}">{{ localidad.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                            <br>
+                            <button type="submit" name="register" class="btn">Create Account</button>
+                            <br>
+                            <a href="#" onclick="login()"><u>Already have an account? Sign in</u></a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+</body>
+{% endblock %}

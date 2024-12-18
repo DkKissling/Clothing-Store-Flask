@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% block body %}
+<section class="section-p1">
+    <div class="container">
+        <h2 class="text-center mb-4">Agregar Nueva Categoría</h2>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form method="POST" action="{{ url_for('product.add_category') }}" class="form">
+            <div class="form-group">
+                <label for="category-name">Nombre de la Categoría:</label>
+                <input type="text" 
+                       id="category-name" 
+                       name="category-name" 
+                       class="form-control" 
+                       required>
+            </div>
+            
+            <div class="form-buttons">
+                <button type="submit" class="normal">Guardar Categoría</button>
+                <button  class="normal"><a href="{{ url_for('product.shop') }}">Cancelar</a></button>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

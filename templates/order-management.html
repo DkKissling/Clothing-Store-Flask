@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+{% block body %}
+<body>
+  <section id="page-header" class="about-header">
+      <h2>#orden-management</h2>
+      <p></p>
+  </section>
+
+  <div class="gestion-pedidos-container">
+      <div class="container-pedidos">
+          <form id="orderForm">
+              <input type="text" id="customerName" placeholder="Nombre del Cliente" required>
+              <input type="text" id="orderItem" placeholder="Artículo" required>
+              <input type="number" id="orderQuantity" placeholder="Cantidad" required>
+              <button type="submit">Agregar Pedido</button>
+          </form>
+
+          <table>
+              <thead>
+                  <tr>
+                      <th>Cliente</th>
+                      <th>Artículo</th>
+                      <th>Cantidad</th>
+                      <th>Estado</th>
+                  </tr>
+              </thead>
+              <tbody id="orderTableBody"></tbody>
+          </table>
+
+          <div class="list-container">
+              <button onclick="generateList('Pendiente')">Generar lista de pendientes</button>
+              <button onclick="generateList('En Proceso')">Generar lista en proceso</button>
+              <button onclick="generateList('Completado')">Generar lista completados</button>
+              <button onclick="generateList('Cancelado')">Generar lista de cancelados</button>
+              <button onclick="generateFullReport()">Generar reporte completo</button>
+          </div>
+
+          <div id="orderList"></div>
+      </div>
+</div>
+
+{% endblock %}

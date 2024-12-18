@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div>
+  <h1>Borrar Producto</h1>
+  <p>¿Estás seguro de que deseas borrar el producto <strong>{{ producto.nombre }}</strong>?</p>
+  
+  <form method="POST" action="{{ url_for('product.delete_product', product_id=producto.producto_id) }}">
+      <button type="submit">Sí, borrar</button>
+  </form>
+
+  <a href="{{ url_for('product.shop') }}">No, volver a la tienda</a>
+</div>
+
+{% endblock %}

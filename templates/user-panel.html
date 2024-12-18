@@ -1,0 +1,80 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<body>
+    <div id="post-header" class="section">
+        <h2>#Panel de Usuarios</h2>
+        <p>Configuracion de Permisos de Usuarios</p>
+    </div>
+    
+  <section class="page-admin-user">
+    <div class="admin-container">
+        <div class="admin-search">
+            <input type="text" id="search" placeholder="Buscar por nombre...">
+        </div>
+
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Permiso</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="user-table-body">
+                <tr class="admin-row">
+                    <td>1</td>
+                    <td>Juan Pérez</td>
+                    <td>juan@ejemplo.com</td>
+                    <td>
+                        <select name="permiso">
+                            <option value="administrador">Administrador</option>
+                            <option value="usuario">Usuario</option>
+                            <option value="empresa">Empresa</option>
+                        </select>
+                    </td>
+                    <td>
+                        <a href="#" class="btn-delete-red" onclick="deleteRow(event)"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                    </td>
+                </tr>
+                <tr class="admin-row">
+                    <td>2</td>
+                    <td>María García</td>
+                    <td>maria@ejemplo.com</td>
+                    <td>
+                        <select name="permiso">
+                            <option value="administrador" selected>Administrador</option>
+                            <option value="usuario">Usuario</option>
+                            <option value="empresa">Empresa</option>
+                        </select>
+                    </td>
+                    <td>
+                        <a href="#" class="btn-delete-red" onclick="deleteRow(event)"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                    </td>
+                </tr>
+                <tr class="admin-row">
+                    <td>3</td>
+                    <td>Carlos Rodríguez</td>
+                    <td>carlos@ejemplo.com</td>
+                    <td>
+                        <select name="permiso">
+                            <option value="administrador">Administrador</option>
+                            <option value="usuario">Usuario</option>
+                            <option value="empresa" selected>Empresa</option>
+                        </select>
+                    </td>
+                    <td>
+                        <a href="#" class="btn-delete-red" onclick="deleteRow(event)"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  </section>
+
+</body>
+
+{% endblock %}

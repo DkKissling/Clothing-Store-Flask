@@ -1,0 +1,21 @@
+{% block body %}
+
+<section id="feature" class="section-p1">
+  {% set features = [
+      ('f1.jpeg', 'Calidad y estilo en cada prenda'),
+      ('f2.jpeg', 'Soporte Personalizado'),
+      ('f3.jpeg', 'Descuentos increíbles'),
+      ('f4.jpeg', 'Looks increíbles en cualquier talla'),
+      ('f5.jpeg', 'Tu moda, tu identidad'),
+      ('f6.jpeg', 'Compra más, paga menos')
+  ] %}
+  
+  {% for image, text in features %}
+  <div class="fe-box">
+      <img src="../static/img/features/{{ image }}" alt="">
+      <h6>{{ text }}</h6>
+  </div>
+  {% endfor %}
+</section>
+
+{% endblock %}

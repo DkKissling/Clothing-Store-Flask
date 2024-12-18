@@ -1,0 +1,81 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<body class="page-index">
+    <section id="hero">
+    </section>
+
+    {% include 'layout2.html' %}
+
+    <hr>
+
+    <section id="products1" class="section-p1">
+        <h2>Productos Destacados</h2>
+        <p>Colección de Verano, Nuevo Diseño Moderno</p>
+        <div class="pro-container">
+            {% for producto in featured_products %}
+            <div class="pro">
+                <a href="{{ url_for('product.product', product_id=producto.producto_id) }}">
+                    <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+                </a>
+                <div class="des">
+                    <span>{{ producto.categoria.nombre if producto.categoria else 'Sin categoría' }}</span>
+                    <h5>{{ producto.nombre }}</h5>
+                    <div class="star">
+                        {% for _ in range(5) %}
+                        <i class="fas fa-star"></i>
+                        {% endfor %}
+                    </div>
+                    <h4>₹{{ producto.precio_formateado|safe }}</h4>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="banner" class="section-m1">
+        <h2>Despierta tu elegancia nocturna con nuestra colección exclusiva:
+        <br><span> moda que ilumina tus noches</span></h2>
+        <button class="normal"><a href="{{ url_for('product.shop') }}">Explora más</a></button>
+    </section>
+
+    <section id="products1" class="section-p1">
+        <h2>Nuevas Llegadas</h2>
+        <p>Colección de Verano, Nuevo Diseño Moderno</p>
+        <div class="pro-container">
+            {% for producto in new_products %}
+            <div class="pro">
+                <a href="{{ url_for('product.product', product_id=producto.producto_id) }}">
+                    <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}">
+                </a>
+                <div class="des">
+                    <span>{{ producto.categoria.nombre if producto.categoria else 'Sin categoría' }}</span>
+                    <h5>{{ producto.nombre }}</h5>
+                    <div class="star">
+                        {% for _ in range(5) %}
+                        <i class="fas fa-star"></i>
+                        {% endfor %}
+                    </div>
+                    <h4>₹{{ producto.precio_formateado|safe }}</h4>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="sm-banner" class="section-p1 section-m1">
+        {% set banner_boxes = [
+            ('Deja que tu estilo brille.', 'Compra 3 y recibe envío gratis', 'El vestido perfecto para cualquier ocasión está en oferta en New Girs', ''),
+            ('primavera/verano', 'Renueva tu look en NewGirs', 'Encuentra tu estilo único', 'banner-box2')
+        ] %}
+        
+        {% for title, subtitle, text, extra_class in banner_boxes %}
+        <div class="banner-box {{ extra_class }}">
+            <h4>{{ title }}</h4>
+            <h2>{{ subtitle }}</h2>
+            <span>{{ text }}</span>
+        </div>
+        {% endfor %}
+    </section>
+</body>
+{% endblock %}

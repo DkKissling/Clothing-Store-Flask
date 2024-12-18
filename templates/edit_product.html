@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<div class="section page-edit-product">
+    <div class="edit-product-container">
+        <h1>Editar Producto</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <label for="product-name">Nombre del Producto:</label>
+            <input type="text" id="product-name" name="product-name" value="{{ producto.nombre }}" required><br>
+
+            <label for="product-description">Descripción:</label>
+            <textarea id="product-description" name="product-description" required>{{ producto.descripcion }}</textarea><br>
+
+            <label for="product-price">Precio:</label>
+            <input type="number" id="product-price" name="product-price" value="{{ producto.precio }}" step="0.01" required><br>
+
+            <label for="category-id">Categoría:</label>
+            <select id="category-id" name="category-id" required>
+                {% for categoria in categorias %}
+                    <option value="{{ categoria.id }}" {% if categoria.id == producto.categoria_id %}selected{% endif %}>
+                        {{ categoria.nombre }}
+                    </option>
+                {% endfor %}
+            </select><br>
+
+            <label for="discount-id">Descuento:</label>
+            <select id="discount-id" name="discount-id">
+                <option value="">Sin descuento</option>
+                {% for descuento in descuentos %}
+                    <option value="{{ descuento.descuento_id }}" {% if descuento.descuento_id == producto.descuento_id %}selected{% endif %}>
+                        {{ descuento.nombre }} - {{ descuento.porcentaje }}%
+                    </option>
+                {% endfor %}
+            </select><br>
+
+            <label for="product-image">Imagen del Producto:</label>
+            <input type="file" id="product-image" name="product-image"><br>
+
+            {% if producto.imagenes %}
+                <img src="{{ producto.imagenes[0].url_imagen }}" alt="Imagen actual del producto" width="100">
+            {% else %}
+                <p>No hay imagen disponible</p>
+            {% endif %}
+
+            <button type="submit">Actualizar Producto</button>
+        </form>
+
+        <a href="{{ url_for('product.shop') }}">Volver a la tienda</a>
+    </div>
+</div>
+
+{% endblock %}

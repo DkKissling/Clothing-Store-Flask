@@ -1,0 +1,123 @@
+<!-- config_profile.html -->
+
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="config-profile">
+    <div class="container-config-profile">
+        <div class="sidebar">
+            <a href="{{ url_for('main.config_profile', section='personal-info') }}" class="menu-link {% if section == 'personal-info' %}active{% endif %}">Información Personal</a>
+            <a href="{{ url_for('main.config_profile', section='addresses') }}" class="menu-link {% if section == 'addresses' %}active{% endif %}">Direcciones</a>
+            <a href="{{ url_for('main.config_profile', section='order-management') }}" class="menu-link {% if section == 'order-management' %}active{% endif %}">Gestión de Pedidos</a>
+            <a href="{{ url_for('main.config_profile', section='account-security') }}" class="menu-link {% if section == 'account-security' %}active{% endif %}">Seguridad de la Cuenta</a>
+            <a href="{{ url_for('main.config_profile', section='privacy-security') }}" class="menu-link {% if section == 'privacy-security' %}active{% endif %}">Configuración de Usuarios</a>
+        </div>
+        <div class="content">
+        <!-- personal info -->
+          <div id="personal-info" class="section-config-profile {% if section == 'personal-info' %}active{% endif %}">
+            <h2>Información Personal</h2>
+            <form method="POST" action="{{ url_for('main.config_profile', section='personal-info') }}">
+                <div class="content-item">
+                    <label for="username">Nombre de usuario</label>
+                    <input type="text" id="username" name="username" value="{{ usuario.nombre_usuario }}">
+                </div>
+                <div class="content-item">
+                    <label for="name">Nombre</label>
+                    <input type="text" id="name" name="name" value="{{ usuario.persona.nombre }}">
+                </div>
+                <div class="content-item">
+                    <label for="lastname">Apellido</label>
+                    <input type="text" id="lastname" name="lastname" value="{{ usuario.persona.apellido }}">
+                </div>
+                <div class="content-item">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" value="{{ usuario.correo_electronico }}">
+                </div>
+                <div class="content-item">
+                    <label for="genero">Género</label>
+                    <select id="genero" name="genero">
+                        {% for genero in generos %}
+                        <option value="{{ genero.genero_id }}" {% if usuario.persona.genero_id == genero.genero_id %}selected{% endif %}>
+                            {{ genero.nombre }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="content-item">
+                    <label for="localidad">Localidad</label>
+                    <select id="localidad" name="localidad">
+                        {% for localidad in localidades %}
+                        <option value="{{ localidad.localidad_id }}" {% if usuario.persona.localidad_id == localidad.localidad_id %}selected{% endif %}>
+                            {{ localidad.nombre }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <button type="submit" class="save-profile">Guardar</button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Direcciones -->
+        <div id="addresses" class="section-config-profile {% if section == 'addresses' %}active{% endif %}">
+            <h2>Direcciones</h2>
+            <form method="post">
+                <div class="content-item">
+                    <label for="address-new">Nueva Dirección</label>
+                    <input type="text" id="address-new" name="direccion-new" placeholder="Agregar nueva dirección">
+                    <button type="submit">Agregar</button>
+                </div>
+            </form>
+            <div class="address-list">
+                {% for direccion in direcciones %}
+                    <div class="content-item">
+                        <p>{{ direccion.direccion }}</p>
+                        <form method="post" action="{{ url_for('main.delete_address', address_id=direccion.id) }}">
+                            <button type="submit">Eliminar</button>
+                        </form>
+                        <form method="post" action="{{ url_for('main.set_default_address', address_id=direccion.id) }}">
+                            <button type="submit">Establecer como Predeterminada</button>
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Gestión de Pedidos y Valoraciones -->
+        <div id="order-management" class="section-config-profile {% if section == 'order-management' %}active{% endif %}">
+            <h2>Gestión de Pedidos y Valoraciones </h2>
+            <div class="content-item">
+                <a href="/order-management">Ver y Gestionar Pedidos</a>
+            </div>
+            <div class="content-item">
+                <a href="/client-reviews">Ver Opiniones de Clientes</a>
+            </div>
+        </div>
+        
+        <!-- Seguridad de la Cuenta -->
+        <div id="account-security" class="section-config-profile {% if section == 'account-security' %}active{% endif %}">
+            <h2>Seguridad de la Cuenta</h2>
+            <div class="content-item">
+                <a href="/reset_password">Cambiar Contraseña</a>
+            </div>
+            <div class="content-item">
+                <a href="/2FA_setup">Habilitar Autenticación en Dos Pasos</a>
+            </div>
+        </div>
+
+
+          <!-- Configuración de Privacidad y Seguridad -->
+          <div id="privacy-security" class="section-config-profile {% if section == 'privacy-security' %}active{% endif %}">
+              <h2>Configuración de Usuarios</h2>
+              <div class="content-item">
+                  <a href="/client-activities">Revisar actividad</a>
+              </div>
+              <div class="content-item">
+                <a href="/user-panel">Gestionar Permisos de Usuario</a>
+            </div>
+          </div>
+      </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<div id="page-header" class="section blog-header">
+    <h2>#readmore</h2>
+    <p>Read all case studies about our products!</p>
+</div>
+
+
+<section id="blog" class="section">
+    <!-- Mostrar botón "Add Post" si el usuario está logueado -->
+    {% if user_logged_in %}
+    <div class="add-post-button">
+        <a href="{{ url_for('main.add_post') }}" class="btn btn-primary"><button class="normal">add post</button></a>
+    </div>
+    {% endif %}
+    {% for post in blog_posts %}
+    <div class="blog-box">
+        <div class="blog-img">
+            <img src="{{ url_for('static', filename='img/blog/' + post.img) }}" alt="{{ post.titulo }}">
+        </div>
+        <div class="blog-details">
+            <h4>{{ post.titulo }}</h4>
+            <p>{{ post.contenido[:100] }}...</p>
+        </div>
+        <h1>{{ post.fecha_creacion.strftime('%d/%m') }}</h1>
+    </div>
+    {% endfor %}
+</section>
+
+<section id="pagination" class="section section-p1">
+    {% for page in range(1, total_pages + 1) %}
+        {% if page == current_page %}
+            <a href="{{ url_for('main.blog', page=page) }}" class="active">{{ page }}</a>
+        {% else %}
+            <a href="{{ url_for('main.blog', page=page) }}">{{ page }}</a>
+        {% endif %}
+    {% endfor %}
+</section>
+
+<section id="newletter" class="section section-p1 section-m1">
+    <div class="newtext">
+        <h4>Sign Up For newsletters</h4>
+        <p>Get E-mail update about our latest shop and special offers.</p>
+    </div>
+    <div class="form">
+        <input type="text" placeholder="Your email address">
+        <button class="normal">Sign Up</button>
+    </div>
+</section>
+
+{% endblock %}

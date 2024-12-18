@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<body>
+<section class="auth-setup-page">
+  <div class="auth-form-container">
+      <h2 class="auth-form-title">Configuración 2FA</h2>
+      <form id="auth-setup-form">
+          <div class="auth-input-group">
+              <label for="method" class="auth-form-label">Método de autenticación:</label>
+              <select id="method" class="auth-input-select" required>
+                  <option value="" disabled selected>Seleccione un método</option>
+                  <option value="sms">SMS</option>
+                  <option value="email">Correo Electrónico</option>
+                  <option value="app">Aplicación de Autenticación</option>
+              </select>
+          </div>
+  
+          <div class="auth-input-group" id="smsField" style="display: none;">
+              <label for="phone" class="auth-form-label">Número de teléfono:</label>
+              <input type="text" id="phone" class="auth-input-text" placeholder="Ingrese su número de teléfono">
+          </div>
+  
+          <div class="auth-input-group" id="emailField" style="display: none;">
+              <label for="email" class="auth-form-label">Correo electrónico:</label>
+              <input type="email" id="email" class="auth-input-email" placeholder="Ingrese su correo electrónico">
+          </div>
+  
+          <button type="submit" class="auth-submit-button">Activar 2FA</button>
+  
+          <div class="auth-verification-section" id="verificationSection">
+              <h3>Verificación</h3>
+              <p>Ingrese el código que recibió:</p>
+              <input type="text" id="verificationCode" class="auth-input-text" placeholder="Código de verificación">
+              <button type="button" id="verifyButton" class="auth-submit-button">Verificar</button>
+              <p id="errorMsg" class="auth-error-message">Código incorrecto, intente nuevamente.</p>
+              <p id="successMsg" class="auth-success-message">Código correcto, 2FA activado con éxito.</p>
+          </div>
+      </form>
+  </div>
+  </section>    
+</body>
+
+{% endblock %}

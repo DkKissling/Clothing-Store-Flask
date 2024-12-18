@@ -1,0 +1,102 @@
+{% extends 'layout.html' %}
+{% block body %}
+<body>
+    <section id="page-header" class="about-header">
+        <h2>#carrito</h2>
+        <p>¡Añade tu código de cupón y ahorra hasta 70%!</p>
+    </section>
+    
+    <section id="cart" class="section-p1">
+        {% set products = session.get('cart', []) %}
+        
+        {% if products|length > 0 %}
+        <table width="100%">
+            <thead>
+                <tr>
+                    <td>Eliminar</td>
+                    <td>Imagen</td>
+                    <td>Producto</td>
+                    <td>Precio</td>
+                    <td>Talla</td>
+                    <td>Cantidad</td>
+                    <td>Subtotal</td>
+                </tr>
+            </thead>
+            <tbody id="cart-items">
+                {% for product in products %}
+                <tr id="product-{{ product.product_id }}">
+                    <td data-label="Eliminar">
+                        <button class="remove-product" data-product-id="{{ product.product_id }}">
+                            <i class="far fa-times-circle"></i> Eliminar
+                        </button>
+                    </td>
+                    <td data-label="Imagen"><img src="{{ product.image }}" alt="{{ product.name }}"></td>
+                    <td data-label="Producto">{{ product.name }}</td>
+                    <td data-label="Precio" class="product-price">₹{{ '%.2f'|format(product.price) }}</td>
+                    <td data-label="Talla">{{ product.size }}</td>
+                    <td data-label="Cantidad">
+                        <input type="number" class="product-quantity" 
+                               data-product-id="{{ product.product_id }}" 
+                               value="{{ product.quantity }}" 
+                               min="1">
+                    </td>
+                    <td data-label="Subtotal" id="subtotal-{{ product.product_id }}">
+                        ₹{{ '%.2f'|format(product.price * product.quantity) }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div id="empty-cart">
+            <h2>Tu Carrito Está Vacío</h2>
+            <p>Parece que aún no has añadido ningún artículo a tu carrito.</p>
+            <a href="/shop" class="normal">Continuar Comprando</a>
+        </div>
+        {% endif %}
+    </section>
+
+
+  {% if products|length > 0 %}
+  <section id="cart-add" class="section-p1">
+      <div id="coupon">
+          <h3>Apply Coupon</h3>
+          <div>
+              <input type="text" placeholder="Enter Your Coupon">
+              <button class="normal">Apply</button>
+          </div>
+      </div>
+
+      <div id="subtotal">
+          <h3>Cart Totals</h3>
+          <table>
+              <tr>
+                  <td>Cart Subtotal</td>
+                  <td id="cart-subtotal">$347.18</td>
+              </tr>
+              <tr>
+                  <td>Shipping</td>
+                  <td>Free</td>
+              </tr>
+              <tr>
+                  <td><strong>Total</strong></td>
+                  <td id="cart-total"><strong>$347.18</strong></td>
+              </tr>
+          </table>
+          <button class="normal">Proceed to checkout</button>
+      </div>
+  </section>
+  {% endif %}
+
+  <section id="newsletter" class="section-p1 section-m1">
+    <div class="newstext">
+        <h4>Sign Up For Newsletters</h4>
+        <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+    </div>
+    <div class="form">
+        <input type="text" placeholder="Your email address">
+        <button class="normal">Sign Up</button>
+    </div>
+  </section>
+</body>
+{% endblock %}

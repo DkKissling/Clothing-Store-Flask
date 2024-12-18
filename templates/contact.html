@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+{% block body %}
+<body class="contact-page">
+    <section id="page-header" class="contact-header">
+        <h2>Encuéntranos y Conéctate</h2>
+        <h3>Descubre nuestra tienda y contáctanos para cualquier consulta. ¡Estamos aquí para ti!</h3>
+    </section>
+
+    <section id="contact-details" class="section-p1">
+        <div class="details">
+            <span>CONTÁCTANOS</span>
+            <h2>Descubre lo mejor en nuestra tienda.</h2>
+            <h3>Ubicación Principal</h3>
+            <ul>
+                <li><i class="fas fa-map-marker-alt"></i> Nuevas Girls, Pasaje Publico 123, California, Cordoba</li>
+                <li><i class="fas fa-envelope"></i> example.com</li>
+                <li><i class="fas fa-phone"></i> +54 9 55555555</li>
+                <li><i class="fas fa-clock"></i> Lunes a Sábado de 9 a 13 y 16 a 20</li>
+            </ul>
+        </div>
+        <div class="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.964921735822!2d-99.14358372491737!3d19.42024838184382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff484d38aeb5%3A0x7b2d872eb9e77580!2sPalacio%20de%20Bellas%20Artes!5e0!3m2!1ses!2ses!4v1727391327892!5m2!1ses!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </section>
+
+    <section id="form-details">
+        <form action="{{ url_for('main.contact') }}" method="POST">
+            <span>DÉJANOS UN MENSAJE</span>
+            <h2>Nos encanta saber de ti</h2>
+            <input type="text" name="nombre" placeholder="Tu Nombre" required>
+            <input type="email" name="email" placeholder="E-mail" required>
+            <input type="text" name="asunto" placeholder="Asunto" required>
+            <textarea name="mensaje" placeholder="Tu Mensaje" rows="8" required></textarea>
+            <button type="submit" class="normal">Enviar</button>
+        </form>
+        <div class="people">
+            {% for i in range(1, 4) %}
+            <div class="person">
+                <img src="../static/img/people/{{ i }}.png" alt="Persona {{ i }}">
+                <p><span>JOHN DOE</span> Gerente de Marketing Senior<br>Teléfono: 8785646575<br>Email: contacto@ejemplo.com</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</body>
+{% endblock %}

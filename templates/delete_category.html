@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<section class="section-p1">
+    <div class="container">
+        <h2>Eliminar Categorías</h2>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% if categorias %}
+            <div class="categories-list">
+                <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                    <thead>
+                        <tr>
+                            <th style="text-align: left; padding: 10px; border-bottom: 2px solid #ddd;">Nombre de la Categoría</th>
+                            <th style="text-align: center; padding: 10px; border-bottom: 2px solid #ddd;">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for categoria in categorias %}
+                        <tr>
+                            <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+                                {{ categoria.nombre }}
+                            </td>
+                            <td style="text-align: center; padding: 10px; border-bottom: 1px solid #ddd;">
+                                <form method="POST" action="{{ url_for('product.delete_category', categoria_id=categoria.id) }}" 
+                                      style="display: inline;" 
+                                      onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta categoría?');">
+                                    <button type="submit" class="normal" style="background-color: #ff4444; color: white;">
+                                        Eliminar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>No hay categorías disponibles para eliminar.</p>
+        {% endif %}
+        
+        <div style="margin-top: 20px;">
+            <a href="{{ url_for('product.shop') }}" class="normal">Volver a la tienda</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
