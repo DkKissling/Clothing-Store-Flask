@@ -2,7 +2,7 @@
 
 ## Descripción
 Este es un proyecto de comercio electrónico desarrollado con Flask que permite a los usuarios crear tiendas online para vender productos de ropa. El sistema incluye características como gestión de usuarios, productos, blog, carrito de compras y panel de administración.
-Existe una version online para ver las funciones principales, por motivos de seguridad hemos bloqueado el login para evitar que puedan realizar cambios sobre la misma https://newgirls.pythonanywhere.com/, Dejamos algunas imagenes para ver sus funciones principales luego de estar logueado.
+Existe una version online para ver las funciones principales, por motivos de seguridad hemos bloqueado el login para evitar que puedan realizar cambios sobre la misma https://newgirls.pythonanywhere.com/, (por ahi pasa que al ingresar por primera vez hay que recargar la pagina debido que el servidor es gratuito y tiene errores) Dejamos algunas imagenes para ver sus funciones principales luego de estar logueado.
 
 ## Imagenes de Muestra
 
