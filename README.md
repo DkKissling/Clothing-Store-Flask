@@ -4,8 +4,19 @@
 Este es un proyecto de comercio electrónico desarrollado con Flask que permite a los usuarios crear tiendas online para vender productos de ropa. El sistema incluye características como gestión de usuarios, productos, blog, carrito de compras y panel de administración.
 Existe una version online para ver las funciones principales, por motivos de seguridad hemos bloqueado el login para evitar que puedan realizar cambios sobre la misma https://newgirls.pythonanywhere.com/, Dejamos algunas imagenes para ver sus funciones principales luego de estar logueado.
 
+En el Perfil en el te va a permitir Agregar, Editar, Borrar y Cambiar el estado de Stock de los productos. Como asi tambien editar el Nombre, Apellido, Imagen y Usuario 
+![image](https://github.com/user-attachments/assets/46658149-23cf-457e-85ae-142fee3d94ac)
 
-![image](https://github.com/user-attachments/assets/707d6a8e-8c9f-4afe-909c-9d97db0decf3)
+
+En el Shop apareceran nuevas opciones para agregar y eliminar categorias para los productos.
+![image](https://github.com/user-attachments/assets/6e98d8b2-846d-4d8d-8e63-ee90ddbc864f)
+
+En el panel de configuracion tenemos varias opciones en las cuales se destacan configuracion Personal y Direcciones que permite no solo modificar el usuario nombre, email y Localidad sino tambien la direccion en la cual se asocia al perfil, pudiendo tener hasta 3 direcciones y permitiendo establecer una como predeterminada para las funciones de compra.
+![image](https://github.com/user-attachments/assets/49d86bcf-ca73-434b-9b41-7ff0e2725ffa)
+
+en el Blog aparecera un boton para agregar un nuevo post
+![image](https://github.com/user-attachments/assets/5349561f-93e2-48f3-a303-00e1fdcbabca)
+
 
 ## Características Principales
 - Sistema de autenticación de usuarios
