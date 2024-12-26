@@ -13,8 +13,14 @@ En el Perfil en el te va a permitir Agregar, Editar, Borrar y Cambiar el estado 
 En el Shop apareceran nuevas opciones para agregar y eliminar categorias para los productos.
 ![image](https://github.com/user-attachments/assets/6e98d8b2-846d-4d8d-8e63-ee90ddbc864f)
 
+
+En la ruta Cart vamos a tener la opcion de eligir modificar la cantidad o eliminar el producto que seleccionamos y en caso de tener un descuento aplicarlo.
+![image](https://github.com/user-attachments/assets/b66cb14d-8a45-41dd-b0c4-012b633b14e6)
+
+
 En el panel de configuracion tenemos varias opciones en las cuales se destacan configuracion Personal y Direcciones que permite no solo modificar el usuario nombre, email y Localidad sino tambien la direccion en la cual se asocia al perfil, pudiendo tener hasta 3 direcciones y permitiendo establecer una como predeterminada para las funciones de compra.
 ![image](https://github.com/user-attachments/assets/49d86bcf-ca73-434b-9b41-7ff0e2725ffa)
+
 
 En el Blog aparecera un boton para agregar un nuevo post
 ![image](https://github.com/user-attachments/assets/5349561f-93e2-48f3-a303-00e1fdcbabca)
